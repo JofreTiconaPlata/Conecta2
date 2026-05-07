@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     currentUsername = sanitizeText(usernameInput.value);
-
     socket = createWebSocketConnection();
 
     updateConnectionStatus(connectionStatus, "Estado: conectando...");
@@ -26,11 +25,35 @@ document.addEventListener("DOMContentLoaded", () => {
       toggleChatControls(messageInput, sendButton, true);
       connectButton.disabled = true;
       usernameInput.disabled = true;
+
+      socket.send(
+        JSON.stringify({
+          event: "user:joined",
+          username: currentUsername,
+        })
+      );
     });
 
     socket.addEventListener("message", (event) => {
       try {
         const data = JSON.parse(event.data);
+
+        if (data.event === "chat:history" && Array.isArray(data.messages)) {
+          chatMessages.innerHTML = "";
+          data.messages.forEach((message) => appendMessage(chatMessages, message));
+          return;
+        }
+
+        if (data.event === "error") {
+          appendMessage(chatMessages, {
+            username: "Sistema",
+            content: data.content,
+            timestamp: data.timestamp,
+            type: "SYSTEM",
+          });
+          return;
+        }
+
         appendMessage(chatMessages, data);
       } catch (error) {
         console.error("No se pudo procesar el mensaje recibido:", error);
@@ -58,14 +81,13 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const payload = {
-      username: currentUsername || "Usuario_local",
-      content,
-      timestamp: new Date().toISOString(),
-      type: "CHAT",
-    };
+    socket.send(
+      JSON.stringify({
+        event: "chat:message",
+        content,
+      })
+    );
 
-    socket.send(JSON.stringify(payload));
     messageInput.value = "";
   });
 });

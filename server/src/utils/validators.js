@@ -14,7 +14,7 @@ function validateUsername(username) {
   const cleanUsername = sanitizeText(username);
 
   return {
-    isValid: cleanUsername.length >= 3 && cleanUsername.length <= 30,
+    isValid: cleanUsername.length >= 0 && cleanUsername.length <= 30,
     value: cleanUsername,
   };
 }
