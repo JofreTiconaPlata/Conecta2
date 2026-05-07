@@ -1,0 +1,29 @@
+{
+  "name": "conecta2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JofreTiconaPlata/Conecta2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JofreTiconaPlata/Conecta2/issues"
+  },
+  "homepage": "https://github.com/JofreTiconaPlata/Conecta2#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "sqlite3": "^6.0.1",
+    "ws": "^8.20.0"
+  }
+}
