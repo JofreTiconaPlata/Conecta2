@@ -25,7 +25,7 @@ function broadcast(wss, payload) {
 }
 
 function handleConnection(wss, socket) {
-  socket.on(SOCKET_EVENTS.MESSAGE, (messageBuffer) => {
+  socket.on(SOCKET_EVENTS.MESSAGE, async (messageBuffer) => {
     try {
       const data = JSON.parse(messageBuffer.toString());
 
@@ -34,7 +34,7 @@ function handleConnection(wss, socket) {
 
         const historyPayload = {
           event: SOCKET_EVENTS.CHAT_HISTORY,
-          messages: getMessageHistory(),
+          messages: await getMessageHistory(),
         };
 
         sendToSocket(socket, historyPayload);
@@ -43,9 +43,8 @@ function handleConnection(wss, socket) {
           content: `${registeredUser.username} se unió al chat.`,
         });
 
-        addMessageToHistory(systemResult.message);
+        await addMessageToHistory(systemResult.message);
         broadcast(wss, systemResult.message);
-
         return;
       }
 
@@ -79,10 +78,12 @@ function handleConnection(wss, socket) {
           return;
         }
 
-        addMessageToHistory(result.message);
+        await addMessageToHistory(result.message);
         broadcast(wss, result.message);
       }
     } catch (error) {
+      console.error("Error procesando mensaje WebSocket:", error.message);
+
       const errorPayload = {
         event: SOCKET_EVENTS.ERROR,
         content: "No se pudo procesar el mensaje recibido.",
@@ -93,19 +94,23 @@ function handleConnection(wss, socket) {
     }
   });
 
-  socket.on("close", () => {
-    const removedUser = removeUser(socket);
+  socket.on("close", async () => {
+    try {
+      const removedUser = removeUser(socket);
 
-    if (!removedUser) {
-      return;
+      if (!removedUser) {
+        return;
+      }
+
+      const systemResult = buildSystemMessage({
+        content: `${removedUser.username} salió del chat.`,
+      });
+
+      await addMessageToHistory(systemResult.message);
+      broadcast(wss, systemResult.message);
+    } catch (error) {
+      console.error("Error al procesar desconexión:", error.message);
     }
-
-    const systemResult = buildSystemMessage({
-      content: `${removedUser.username} salió del chat.`,
-    });
-
-    addMessageToHistory(systemResult.message);
-    broadcast(wss, systemResult.message);
   });
 
   socket.on("error", (error) => {
