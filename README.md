@@ -61,3 +61,191 @@ Ejecuta en terminal:
 git --version
 node --version
 npm --version
+```
+
+> Se recomienda usar **Node.js 20 LTS o superior**.
+
+---
+
+## Clonar el repositorio
+
+```bash
+git clone https://github.com/JofreTiconaPlata/Conecta2.git
+cd Conecta2
+```
+
+---
+
+## Instalación de dependencias
+
+Desde la raíz del proyecto, ejecuta:
+
+```bash
+npm install
+```
+
+### Dependencias principales
+
+El proyecto utiliza principalmente estas dependencias:
+
+- **express**: servidor HTTP
+- **ws**: comunicación en tiempo real con WebSocket
+- **sqlite3**: persistencia local de mensajes y eventos
+- **dotenv**: manejo de variables de entorno
+
+Si se desea instalar manualmente, sería:
+
+```bash
+npm install express ws sqlite3 dotenv
+```
+
+---
+
+## Configuración del entorno
+
+El proyecto incluye un archivo llamado `.env.example`.
+
+### Crear archivo `.env`
+
+En Linux:
+
+```bash
+cp .env.example .env
+```
+
+En Windows PowerShell:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+### Contenido del archivo `.env`
+
+```env
+PORT=3000
+HOST=0.0.0.0
+NODE_ENV=development
+DB_PATH=database/conecta2.db
+```
+
+> Si no se crea el archivo `.env`, el sistema puede usar valores por defecto definidos en la configuración, pero es recomendable tenerlo.
+
+---
+
+## Cómo ejecutar el proyecto
+
+Desde la raíz del proyecto, ejecuta:
+
+```bash
+node server/src/server.js
+```
+
+### Salida esperada en terminal
+
+```bash
+Base de datos SQLite conectada en: /ruta/completa/database/conecta2.db
+Migraciones SQLite ejecutadas correctamente.
+Servidor HTTP ejecutándose en http://0.0.0.0:3000
+Health check disponible en http://0.0.0.0:3000/health
+```
+
+---
+
+## Cómo acceder al sistema
+
+Abrir el navegador en:
+
+```text
+http://localhost:3000
+```
+
+---
+
+## Verificación del backend
+
+Para comprobar que el servidor funciona correctamente, abrir:
+
+```text
+http://localhost:3000/health
+```
+
+### Respuesta esperada
+
+```json
+{
+  "status": "ok",
+  "service": "Conecta2 API",
+  "timestamp": "2026-05-07T00:00:00.000Z"
+}
+```
+
+---
+
+## Cómo probar el chat
+
+1. Iniciar el servidor.
+2. Abrir `http://localhost:3000` en una pestaña del navegador.
+3. Abrir la misma dirección en otra pestaña o en otro navegador.
+4. Conectar usuarios distintos.
+5. Enviar mensajes entre ellos.
+6. Verificar que:
+   - los mensajes aparecen en tiempo real
+   - se notifica cuando un usuario entra
+   - se notifica cuando un usuario sale
+   - el historial se mantiene visible
+
+---
+
+## Funcionalidades principales
+
+- chat en tiempo real con WebSocket
+- conexión simultánea de varios usuarios
+- historial básico de mensajes
+- notificación de entrada y salida de usuarios
+- nombre temporal automático si el usuario no define uno
+- persistencia básica mediante SQLite
+- endpoint de verificación `/health`
+
+---
+
+## Estructura general del proyecto
+
+```text
+Conecta2/
+├── client/
+│   ├── public/
+│   └── src/
+├── server/
+│   └── src/
+│       └── server.js
+├── database/
+├── .env.example
+├── package.json
+└── README.md
+```
+
+> La estructura exacta puede variar ligeramente según la versión final del proyecto, pero esta organización representa la base del sistema.
+
+---
+
+## Comandos útiles
+
+### Editar el README
+
+```bash
+nano README.md
+```
+
+### Guardar cambios en Git
+
+```bash
+git add README.md
+git commit -m "docs: actualizar readme del proyecto Conecta2"
+git push origin main
+```
+
+---
+
+## Autor
+
+Proyecto desarrollado con fines académicos para la implementación de un sistema de chat colaborativo en tiempo real.
