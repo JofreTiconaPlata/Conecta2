@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conecta2</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+    <main class="app-container">
+      <section class="chat-card">
+        <header class="chat-header">
+          <h1>Conecta2</h1>
+          <p>Chat colaborativo en tiempo real con WebSocket</p>
+        </header>
+
+        <section class="connection-panel">
+          <label for="username">Nombre de usuario</label>
+          <div class="connection-row">
+            <input
+              type="text"
+              id="username"
+              placeholder="Ingresa tu nombre o usa uno temporal"
+              maxlength="30"
+            />
+            <button id="connect-button">Conectar</button>
+          </div>
+          <small id="connection-status">Estado: desconectado</small>
+        </section>
+
+        <section id="chat-messages" class="chat-messages"></section>
+
+        <form id="chat-form" class="chat-form">
+          <input
+            type="text"
+            id="message-input"
+            placeholder="Escribe un mensaje..."
+            maxlength="500"
+            disabled
+          />
+          <button type="submit" id="send-button" disabled>Enviar</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="./js/utils.js"></script>
+    <script src="./js/chat-ui.js"></script>
+    <script src="./js/websocket.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
