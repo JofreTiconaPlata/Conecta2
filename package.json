@@ -1,25 +1,12 @@
 {
   "name": "conecta2",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "description": "Chat colaborativo en tiempo real con WebSocket",
+  "main": "server/src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/src/server.js",
+    "dev": "node server/src/server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/JofreTiconaPlata/Conecta2.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/JofreTiconaPlata/Conecta2/issues"
-  },
-  "homepage": "https://github.com/JofreTiconaPlata/Conecta2#readme",
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
