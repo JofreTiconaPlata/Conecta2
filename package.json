@@ -8,9 +8,12 @@
     "dev": "node server/src/server.js"
   },
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "firebase": "^12.13.0",
+    "firebase-admin": "^13.9.0",
     "sqlite3": "^6.0.1",
     "ws": "^8.20.0"
   },

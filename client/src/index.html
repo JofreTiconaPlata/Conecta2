@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Conecta2</title>
     <link rel="stylesheet" href="./css/styles.css" />
+
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+
+    <script>
+      window.FIREBASE_API_KEY = "AIzaSyBoHb_DySx12gW2QjzZ9E3Mn1816F6o5Sk";
+      window.FIREBASE_AUTH_DOMAIN = "websocketcolab.firebaseapp.com";
+      window.FIREBASE_PROJECT_ID = "websocketcolab";
+      window.FIREBASE_APP_ID = "1:665650478406:web:0082c34ccdf36e387e7947";
+    </script>
   </head>
   <body>
     <main class="app-container">
@@ -14,18 +24,25 @@
           <p>Chat colaborativo en tiempo real con WebSocket</p>
         </header>
 
-        <section class="connection-panel">
-          <label for="username">Nombre de usuario</label>
-          <div class="connection-row">
-            <input
-              type="text"
-              id="username"
-              placeholder="Ingresa tu nombre o usa uno temporal"
-              maxlength="30"
-            />
-            <button id="connect-button">Conectar</button>
-          </div>
-          <small id="connection-status">Estado: desconectado</small>
+<section class="connection-panel">
+  <label for="username">Nombre de usuario</label>
+  <div class="connection-row">
+    <input
+      type="text"
+      id="username"
+      placeholder="Ingresa tu nombre o usa uno temporal"
+      maxlength="30"
+    />
+    <button id="connect-button">Conectar</button>
+  </div>
+  <small id="connection-status">Estado: desconectado</small>
+
+  <div class="google-login-section">
+    <p>O inicia sesión con Google</p>
+    <button id="firebase-google-login-button" type="button">
+      Iniciar sesión con Google
+    </button>
+      </div>
         </section>
 
         <section id="chat-messages" class="chat-messages"></section>
@@ -43,9 +60,11 @@
       </section>
     </main>
 
-    <script src="./js/utils.js"></script>
-    <script src="./js/chat-ui.js"></script>
-    <script src="./js/websocket.js"></script>
-    <script src="./js/app.js"></script>
+<script src="./js/utils.js"></script>
+<script src="./js/chat-ui.js"></script>
+<script src="./js/websocket.js"></script>
+<script src="./js/firebase-config.js"></script>
+<script src="./js/auth-ui.js"></script>
+<script src="./js/app.js"></script>
   </body>
 </html>
