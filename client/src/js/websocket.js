@@ -1,13 +1,13 @@
-//ARCHIVO CORREGIDO 100% - PARA QUE FUNCIONE CON LOCALTUNNEL
 function createWebSocketConnection() {
+    // 🎯 AHORA BUSCA: .loca.lt (el tuyo) 
     const esTunel = window.location.hostname.includes(".loca.lt");
     const protocolo = window.location.protocol === "https:" ? "wss" : "ws";
 
     if (esTunel) {
-        // 🟢 PARA TU AMIGO: SIN PUERTO, SOLO EL DOMINIO DEL TÚNEL
+        // ✅ CUALQUIER TÚNEL → SIN PUERTO
         return new WebSocket(`${protocolo}://${window.location.host}`);
     } else {
-        // 🟡 PARA TI EN TU PC: CON PUERTO 3001
+        // ✅ MISMA RED / TU CASA → CON PUERTO 3000
         return new WebSocket(`${protocolo}://${window.location.hostname}:3000`);
     }
 }
