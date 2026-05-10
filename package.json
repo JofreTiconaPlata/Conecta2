@@ -8,9 +8,25 @@
     "dev": "node server/src/server.js"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "sqlite3": "^6.0.1",
     "ws": "^8.20.0"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JofreTiconaPlata/Conecta2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JofreTiconaPlata/Conecta2/issues"
+  },
+  "homepage": "https://github.com/JofreTiconaPlata/Conecta2#readme"
 }
