@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     socket.addEventListener("close", () => {
-      updateConnectionStatus(connectionStatus, "Estado: desconectado ❌");
+      updateConnectionStatus(connectionStatus, "Estado: desconectado ");
       toggleChatControls(messageInput, sendButton, false);
       connectButton.disabled = false;
       usernameInput.disabled = false;
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     socket.addEventListener("error", (err) => {
-      updateConnectionStatus(connectionStatus, "Estado: ERROR DE CONEXIÓN ⚠️");
+      updateConnectionStatus(connectionStatus, "Estado: ERROR DE CONEXIÓN ");
       // ✅ ESTO ES LO QUE FALTABA: AVISARLE POR QUÉ FALLA
       alert("❌ No se pudo conectar. ¿Pasaste la pantalla de LocalTunnel?");
       console.error("Error:", err);
