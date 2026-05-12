@@ -14,11 +14,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   let socket = null;
   let currentUsername = "";
 
-  function showChatScreen() {
-    accessScreen.classList.add("hidden");
-    chatScreen.classList.remove("hidden");
+function showChatScreen() {
+  accessScreen.classList.add("hidden");
+  chatScreen.classList.remove("hidden");
+
+  if (currentUsername && currentUsername.trim() !== "") {
     welcomeUser.textContent = `Bienvenido, ${currentUsername}`;
+  } else {
+    welcomeUser.textContent = "Bienvenido al chat";
   }
+}
 
   function connectToChat() {
     if (socket && socket.readyState === WebSocket.OPEN) {
@@ -95,18 +100,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  guestAccessButton.addEventListener("click", () => {
-    const guestName = guestNameInput.value.trim();
+guestAccessButton.addEventListener("click", () => {
+  const guestName = guestNameInput.value.trim();
 
-    if (!guestName) {
-      alert("⚠️ Escribe un nombre para ingresar como invitado.");
-      return;
-    }
-
-    currentUsername = guestName;
-    showChatScreen();
-    connectToChat();
-  });
+  currentUsername = guestName;
+  showChatScreen();
+  connectToChat();
+});
 
   window.addEventListener("conecta2:firebase-authenticated", (event) => {
     const user = event.detail;
