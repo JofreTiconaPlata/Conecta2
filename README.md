@@ -154,7 +154,11 @@ Servidor HTTP ejecutándose en http://localhost:3000
 Health check disponible en http://0.0.0.0:3000/health
 ```
 
----
+```bash
+$ lt --port 3000
+your url is: https://calm-mirrors-read.loca.lt
+
+```
 
 ## Cómo acceder al sistema
 
