@@ -103,21 +103,18 @@ npm install express ws sqlite3 dotenv
 
 ## Configuración del entorno
 
-El proyecto incluye un archivo llamado `.env.example`.
-
 ### Crear archivo `.env`
 
-En Linux:
+PORT=3000
+HOST=0.0.0.0
+NODE_ENV=development
+DB_PATH=database/conecta2.db
 
-```bash
-cp .env.example .env
-```
+FIREBASE_PROJECT_ID=websocketcolab
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-fbsvc@websocketcolab.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDUmkOmb7zfwEo4\ns3l8dqorgSrc3LUckPmiPj0n2WgGpagiS6MKaww+2j2wo5n2mbkIDf8/6urbbqNk\nljjBE2Jz2mlmR2Iiul/H6bjKBz4GR/dZX81HCMfCnKOkM516wGaE30Lbo+U+Nyax\nW9L/UrlUG4WS1JoDu6uiWYiH5gFFurnEi6mA+PnBPcSwJDSuub1hraLfo8xPB6jP\nUYDudSetMacQberuFYDASW8rbs8i/WRFR8pu2/mP1h5KF2TGacm6XAmhITIh2DWL\ntI3YRemuspX1sN8bH6rW7gGVPHgW1ntum0cWzLZULpOHU/aCxOYdy7BPAhzAPIPw\n37xZCpupAgMBAAECggEAMRzX3uV2IMw3eSTAvkddZUJoB/B2aDx3ZorxLrjy5oIz\nNoT5i4kSIZzh3mHUydpWG628FuRqT7mdxjlLsBKNzkyYx5da7MHYKYLs/MKyidnr\nInrWnX/CQctUpDSGPxqeNDitJbcVWIt+BT+8nN3b0TmwYCx7zbv3WMBNIXO5PIWL\n3iBm8Qo+LcWQCEozjUxT5v8XXrrNrAG/lT+Kg6w1VXkrpnn3H1h3gDDi9RO0U0lV\nGesTDU6ZByUaKEIcIEn5y1rxjw5rYWcP6iNce0U7xAI88NWEwgwr/KF6+clXvjR3\nVdcI1XN4sOtkFVnz5G52x4ZZcqojqoEK73TtISrWLwKBgQDu9gInqIMzt320om3F\n5iuktmAa8cvwR4tqDSF80bHipD5qnVyv+YQ8OqBzZchStt97btH2MoaIKbkUP2nO\n6aLwyVCrGgo8fDgv41HSPZ2eYDe/OuNonJQ+kPSqOgUByFL+anuxqtyMcMRRIzd2\n5tF9FrAsqwX1HA6uNYq4xmFgMwKBgQDjwxw6n8Sk0b4AyW/bBUMKYjhye4YyeS1V\n+9I5PPRbic7neAC98Fat3XSld5GC9T2ze/vHBeIH1E9SnF1x+VFvf1MZtNalS+Vy\nX5guc1s2Ro7GnSK+cVbtVnYSWlt6iqx8CeRFX2uGGOGY8jv6y9Lj0Mz8xViEU+xn\nqx5JAoJIswKBgGotZUe52JJiNbjNc3k7jKjjYFCYn8VkBM5ah0au5huOXy2APm7y\nr48TfbfIwfn+x85Qr3p1eNGHuHUGuDz4Ey5qRS3BpEq75ztgBjskpaR5nEucHu+c\no0Ippoz8urzQBhCFv/Bxuw2sDY7/1uU+KlcqfZ1bYIpIrT07DSiM/TeBAoGAMNTt\nIXiNrZS2eu61R60KIZjLZ2gqbnniiXPTL6hs749NR/1Hk3GK8/3t+2f2T7CKyQeF\nBLezLWCMnTafJkeA+TnANFu8RXZPPEVYmGTtImbgR577Cv+71mjaKbcrs8s1jeaF\nBYaexAJjo+oTiALZNTTYLj2Va9Gedt+OP7MFAdcCgYAYOtcpKW56/tDGa4UgQyA+\nsfVY6Ko1ySwLWWtShMHvO+kz6vEZ37MZaQmzDmtDQRPKTIOHAvrGeKefozP3jikS\n8hGS0BlDQIL+H7IAfHr8dux73tKM+QQvfuJmhra6sr7U31H19GpvAMkrtUrYeX5p\n6LYicHzNeevvLkCjzB2fnQ==\n-----END PRIVATE KEY-----\n"
+SESSION_SECRET=conecta2_dev_secret
 
-En Windows PowerShell:
-
-```powershell
-Copy-Item .env.example .env
-```
 
 ### Contenido del archivo `.env`
 
@@ -145,7 +142,7 @@ node server/src/server.js
 ```bash
 Base de datos SQLite conectada en: /ruta/completa/database/conecta2.db
 Migraciones SQLite ejecutadas correctamente.
-Servidor HTTP ejecutándose en http://0.0.0.0:3000
+Servidor HTTP ejecutándose en http://localhost:3000
 Health check disponible en http://0.0.0.0:3000/health
 ```
 
@@ -210,23 +207,45 @@ http://localhost:3000/health
 
 ## Estructura general del proyecto
 
-```text
 Conecta2/
 ├── client/
-│   ├── public/
-│   └── src/
+│   ├── src/
+│   │   ├── css/
+│   │   │   └── styles.css
+│   │   ├── js/
+│   │   │   ├── app.js
+│   │   │   ├── auth-ui.js
+│   │   │   ├── chat-ui.js
+│   │   │   ├── firebase-config.js
+│   │   │   ├── utils.js
+│   │   │   └── websocket.js
+│   │   └── index.html
+│   └── README.md
+│
 ├── server/
-│   └── src/
-│       └── server.js
-├── database/
-├── .env.example
+│   ├── src/
+│   │   ├── config/
+│   │   ├── constants/
+│   │   ├── controllers/
+│   │   ├── database/
+│   │   ├── middlewares/
+│   │   ├── repositories/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   ├── app.js
+│   │   ├── server.js
+│   │   └── websocket.js
+│   └── README.md
+│
+├── shared/
+│   ├── constants/
+│   └── dto/
+│
+├── .gitignore
 ├── package.json
+├── package-lock.json
 └── README.md
-```
 
-> La estructura exacta puede variar ligeramente según la versión final del proyecto, pero esta organización representa la base del sistema.
-
----
 
 ## Comandos útiles
 
