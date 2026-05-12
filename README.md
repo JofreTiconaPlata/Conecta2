@@ -106,7 +106,7 @@ npm install express ws sqlite3 dotenv
 ### Crear archivo `.env`
 
 PORT=3000
-HOST=0.0.0.0
+HOST=localhost
 NODE_ENV=development
 DB_PATH=database/conecta2.db
 
@@ -120,7 +120,7 @@ SESSION_SECRET=conecta2_dev_secret
 
 ```env
 PORT=3000
-HOST=0.0.0.0
+HOST=localhost
 NODE_ENV=development
 DB_PATH=database/conecta2.db
 ```
