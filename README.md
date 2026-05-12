@@ -84,6 +84,10 @@ Desde la raíz del proyecto, ejecuta:
 npm install
 ```
 
+```bash
+npm install -g localtunnel
+```
+
 ### Dependencias principales
 
 El proyecto utiliza principalmente estas dependencias:
@@ -135,6 +139,10 @@ Desde la raíz del proyecto, ejecuta:
 
 ```bash
 node server/src/server.js
+```
+
+```bash
+lt --port 3000
 ```
 
 ### Salida esperada en terminal
