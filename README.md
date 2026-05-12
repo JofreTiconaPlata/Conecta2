@@ -8,7 +8,7 @@ Permite que múltiples usuarios se conecten desde el navegador, intercambien men
 ## Descripción del proyecto
 
 El sistema fue desarrollado como una **SPA (Single Page Application)** orientada a la comunicación colaborativa en tiempo real.  
-La interacción entre cliente y servidor se realiza mediante **WebSocket**, evitando el uso de polling o long-polling, y los mensajes relevantes se almacenan en **SQLite** para mantener persistencia básica.
+La interacción entre cliente y servidor se realiza mediante **WebSocket**, evitando el uso de polling o long-polling, y los mensajes relevantes se almacenan en **SQLite** para mantener persistencia básica. 
 
 ---
 
@@ -203,49 +203,7 @@ http://localhost:3000/health
 - persistencia básica mediante SQLite
 - endpoint de verificación `/health`
 
-
-
-## Estructura general del proyecto
-
-Conecta2/
-├── client/
-│   ├── src/
-│   │   ├── css/
-│   │   │   └── styles.css
-│   │   ├── js/
-│   │   │   ├── app.js
-│   │   │   ├── auth-ui.js
-│   │   │   ├── chat-ui.js
-│   │   │   ├── firebase-config.js
-│   │   │   ├── utils.js
-│   │   │   └── websocket.js
-│   │   └── index.html
-│   └── README.md
-│
-├── server/
-│   ├── src/
-│   │   ├── config/
-│   │   ├── constants/
-│   │   ├── controllers/
-│   │   ├── database/
-│   │   ├── middlewares/
-│   │   ├── repositories/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   ├── app.js
-│   │   ├── server.js
-│   │   └── websocket.js
-│   └── README.md
-│
-├── shared/
-│   ├── constants/
-│   └── dto/
-│
-├── .gitignore 
-├── package.json
-├── package-lock.json
-└── README.md
-
+---
 
 ## Comandos útiles
 
