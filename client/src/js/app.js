@@ -1,24 +1,36 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const connectButton = document.getElementById("connect-button");
-  const usernameInput = document.getElementById("username");
+  const accessScreen = document.getElementById("access-screen");
+  const chatScreen = document.getElementById("chat-screen");
+  const guestNameInput = document.getElementById("guest-name");
+  const guestAccessButton = document.getElementById("guest-access-button");
+  const firebaseGoogleLoginButton = document.getElementById("firebase-google-login-button");
+  const welcomeUser = document.getElementById("welcome-user");
   const connectionStatus = document.getElementById("connection-status");
   const chatMessages = document.getElementById("chat-messages");
   const chatForm = document.getElementById("chat-form");
   const messageInput = document.getElementById("message-input");
   const sendButton = document.getElementById("send-button");
-  const firebaseGoogleLoginButton = document.getElementById("firebase-google-login-button");
 
   let socket = null;
   let currentUsername = "";
 
-  function conectarWebSocket() {
+  function showChatScreen() {
+    accessScreen.classList.add("hidden");
+    chatScreen.classList.remove("hidden");
+    welcomeUser.textContent = `Bienvenido, ${currentUsername}`;
+  }
+
+  function connectToChat() {
+    if (socket && socket.readyState === WebSocket.OPEN) {
+      return;
+    }
+
     socket = createWebSocketConnection();
+    updateConnectionStatus(connectionStatus, "Estado: conectando...");
 
     socket.addEventListener("open", () => {
       updateConnectionStatus(connectionStatus, "Estado: conectado ✅");
       toggleChatControls(messageInput, sendButton, true);
-      connectButton.disabled = true;
-      usernameInput.disabled = true;
 
       socket.send(
         JSON.stringify({
@@ -57,8 +69,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     socket.addEventListener("close", () => {
       updateConnectionStatus(connectionStatus, "Estado: desconectado ❌");
       toggleChatControls(messageInput, sendButton, false);
-      connectButton.disabled = false;
-      usernameInput.disabled = false;
 
       appendMessage(chatMessages, {
         username: "Sistema",
@@ -85,11 +95,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
+  guestAccessButton.addEventListener("click", () => {
+    const guestName = guestNameInput.value.trim();
+
+    if (!guestName) {
+      alert("⚠️ Escribe un nombre para ingresar como invitado.");
+      return;
+    }
+
+    currentUsername = guestName;
+    showChatScreen();
+    connectToChat();
+  });
+
   window.addEventListener("conecta2:firebase-authenticated", (event) => {
     const user = event.detail;
-    currentUsername = user.name || user.email || "";
-    usernameInput.value = currentUsername;
-    usernameInput.disabled = true;
+    currentUsername = user.name || user.email || "Usuario autenticado";
 
     appendMessage(chatMessages, {
       username: "Sistema",
@@ -97,44 +118,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       timestamp: Date.now(),
       type: "SYSTEM",
     });
+
+    showChatScreen();
+    connectToChat();
   });
 
   try {
     const sessionResult = await getCurrentSession();
 
     if (sessionResult.ok && sessionResult.user) {
-      currentUsername = sessionResult.user.name || sessionResult.user.email || "";
-      usernameInput.value = currentUsername;
-      usernameInput.disabled = true;
-
-      appendMessage(chatMessages, {
-        username: "Sistema",
-        content: `Sesión detectada para ${currentUsername}`,
-        timestamp: Date.now(),
-        type: "SYSTEM",
-      });
+      currentUsername = sessionResult.user.name || sessionResult.user.email || "Usuario autenticado";
+      showChatScreen();
+      connectToChat();
     }
   } catch (error) {
     console.error("No se pudo recuperar la sesión actual:", error);
   }
-
-  connectButton.addEventListener("click", async () => {
-    if (socket && socket.readyState === WebSocket.OPEN) {
-      return;
-    }
-
-    if (!currentUsername) {
-      currentUsername = usernameInput.value.trim();
-    }
-
-    if (!currentUsername) {
-      alert("⚠️ Escribe un nombre válido o inicia sesión con Google.");
-      return;
-    }
-
-    updateConnectionStatus(connectionStatus, "Estado: conectando...");
-    conectarWebSocket();
-  });
 
   chatForm.addEventListener("submit", (event) => {
     event.preventDefault();

@@ -18,31 +18,43 @@
   </head>
   <body>
     <main class="app-container">
-      <section class="chat-card">
-        <header class="chat-header">
+      <section id="access-screen" class="access-card">
+        <header class="access-header">
           <h1>Conecta2</h1>
-          <p>Chat colaborativo en tiempo real con WebSocket</p>
+          <p>Chat colaborativo en tiempo real</p>
         </header>
 
-<section class="connection-panel">
-  <label for="username">Nombre de usuario</label>
-  <div class="connection-row">
-    <input
-      type="text"
-      id="username"
-      placeholder="Ingresa tu nombre o usa uno temporal"
-      maxlength="30"
-    />
-    <button id="connect-button">Conectar</button>
-  </div>
-  <small id="connection-status">Estado: desconectado</small>
+        <section class="access-panel">
+          <label for="guest-name">Ingresar como invitado</label>
+          <input
+            type="text"
+            id="guest-name"
+            placeholder="Escribe tu nombre"
+            maxlength="30"
+          />
 
-  <div class="google-login-section">
-    <p>O inicia sesión con Google</p>
-    <button id="firebase-google-login-button" type="button">
-      Iniciar sesión con Google
-    </button>
-      </div>
+          <button id="guest-access-button" type="button">
+            Acceder al chat
+          </button>
+
+          <div class="access-divider">
+            <span>o</span>
+          </div>
+
+          <button id="firebase-google-login-button" type="button">
+            Iniciar sesión con Google
+          </button>
+        </section>
+      </section>
+
+      <section id="chat-screen" class="chat-card hidden">
+        <header class="chat-header">
+          <h1>Conecta2</h1>
+          <p id="welcome-user">Bienvenido</p>
+        </header>
+
+        <section class="connection-panel">
+          <small id="connection-status">Estado: desconectado</small>
         </section>
 
         <section id="chat-messages" class="chat-messages"></section>
@@ -60,11 +72,11 @@
       </section>
     </main>
 
-<script src="./js/utils.js"></script>
-<script src="./js/chat-ui.js"></script>
-<script src="./js/websocket.js"></script>
-<script src="./js/firebase-config.js"></script>
-<script src="./js/auth-ui.js"></script>
-<script src="./js/app.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/chat-ui.js"></script>
+    <script src="./js/websocket.js"></script>
+    <script src="./js/firebase-config.js"></script>
+    <script src="./js/auth-ui.js"></script>
+    <script src="./js/app.js"></script>
   </body>
 </html>
