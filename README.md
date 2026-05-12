@@ -241,7 +241,7 @@ Conecta2/
 │   ├── constants/
 │   └── dto/
 │
-├── .gitignore
+├── .gitignore 
 ├── package.json
 ├── package-lock.json
 └── README.md
